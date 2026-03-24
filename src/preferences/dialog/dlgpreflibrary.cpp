@@ -273,6 +273,8 @@ void DlgPrefLibrary::slotResetToDefaults() {
     checkBox_edit_metadata_selected_clicked->setChecked(kEditMetadataSelectedClickDefault);
     radioButton_dbclick_deck->setChecked(true);
     spinbox_bpm_precision->setValue(BaseTrackTableModel::kBpmColumnPrecisionDefault);
+    checkbox_highlight_track_color_rows->setChecked(
+            BaseTrackTableModel::kApplyTrackColorToRowsDefault);
     checkbox_played_track_color->setChecked(
             BaseTrackTableModel::kApplyPlayedTrackColorDefault);
     checkbox_loaded_track_color->setChecked(
@@ -452,6 +454,12 @@ void DlgPrefLibrary::slotUpdate() {
                     kBpmColumnPrecisionConfigKey,
                     BaseTrackTableModel::kBpmColumnPrecisionDefault);
     spinbox_bpm_precision->setValue(bpmColumnPrecision);
+
+    const auto applyTrackColorToRows =
+            m_pConfig->getValue(
+                    mixxx::library::prefs::kApplyTrackColorToRowsConfigKey,
+                    BaseTrackTableModel::kApplyTrackColorToRowsDefault);
+    checkbox_highlight_track_color_rows->setChecked(applyTrackColorToRows);
 
     const auto applyPlayedTrackColor =
             m_pConfig->getValue(
@@ -671,6 +679,12 @@ void DlgPrefLibrary::slotApply() {
         m_iOriginalTrackTableRowHeight = rowHeight;
     }
 
+    BaseTrackTableModel::setApplyTrackColorToRows(
+            checkbox_highlight_track_color_rows->isChecked());
+    m_pConfig->set(
+            mixxx::library::prefs::kApplyTrackColorToRowsConfigKey,
+            ConfigValue(checkbox_highlight_track_color_rows->isChecked()));
+
     BaseTrackTableModel::setApplyPlayedTrackColor(
             checkbox_played_track_color->isChecked());
     m_pConfig->set(
@@ -682,6 +696,7 @@ void DlgPrefLibrary::slotApply() {
             mixxx::library::prefs::kApplyLoadedTrackColorConfigKey,
             ConfigValue(checkbox_loaded_track_color->isChecked()));
     m_pLibrary->slotRefreshCurrentTrackTableView();
+    m_pLibrary->updateTrackTableViews();
 
     // TODO(rryan): Don't save here.
     m_pConfig->save();
