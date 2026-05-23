@@ -1,0 +1,103 @@
+name: Build Mixxx Windows (mixxx-pro)
+
+on:
+  push:
+    branches: [ mixxx-pro ]
+  pull_request:
+    branches: [ mixxx-pro ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Ensure that all tags are fetched
+      run: git fetch origin --force --tags
+    
+    - name: Set up cmake
+      uses: jwlawson/actions-setup-cmake@v2.1
+      with:
+        cmake-version: "3.21.x"
+    
+    - name: Set up MSVC Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+    
+    - name: Install Ninja
+      run: |
+        choco install ninja -y
+        ninja --version
+    
+    - name: Get build environment name
+      run: tools\windows_buildenv.bat name
+    
+    - name: Cache build environment
+      uses: actions/cache@v4
+      with:
+        path: buildenv
+        key: windows-buildenv-${{ env.BUILDENV_NAME }}
+    
+    - name: Set up build environment
+      shell: cmd
+      run: tools\windows_buildenv.bat setup
+      env:
+        BUILDENV_RELEASE: TRUE
+    
+    - name: Configure CMake
+      shell: cmd
+      run: |
+        cmake -S . -B build ^
+          -G Ninja ^
+          -DCMAKE_BUILD_TYPE=Release ^
+          -DCMAKE_TOOLCHAIN_FILE=%MIXXX_VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake ^
+          -DQML=ON ^
+          -DBULK=ON ^
+          -DHID=ON ^
+          -DKEYFINDER=ON ^
+          -DLILV=ON ^
+          -DOPUS=ON ^
+          -DVINYLCONTROL=ON ^
+          -DBROADCAST=ON ^
+          -DBATTERY=ON
+    
+    - name: Build Mixxx
+      shell: cmd
+      run: cmake --build build --config Release --parallel 2
+    
+    - name: Run tests
+      shell: cmd
+      run: |
+        cd build
+        ctest --build-config Release --parallel 2 --output-on-failure
+      continue-on-error: true
+    
+    - name: Package installer
+      shell: cmd
+      run: |
+        cd build
+        cpack -G WIX -C Release
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: mixxx-windows-x64-build
+        path: |
+          build/mixxx.exe
+          build/*.dll
+          build/res/
+        retention-days: 30
+    
+    - name: Upload installer package
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: mixxx-windows-x64-installer
+        path: build/*.msi
+        retention-days: 30
