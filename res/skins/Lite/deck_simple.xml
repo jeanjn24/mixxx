@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template>
+<Template>
+  <WidgetGroup>
+    <ObjectName>DeckSimple</ObjectName>
+    <Layout>vertical</Layout>
+    <SizePolicy>
+      <Size>me,me</Size>
+    </SizePolicy>
+    <Children>
+
+      <!-- Deck Header -->
+      <WidgetGroup>
+        <ObjectName>DeckHeader</ObjectName>
+        <Layout>horizontal</Layout>
+        <SizePolicy>
+          <Size>me,30f</Size>
+        </SizePolicy>
+        <Children>
+          <!-- Track Title -->
+          <Label>
+            <ObjectName>TrackTitle</ObjectName>
+            <TooltipId>track_title</TooltipId>
+            <Size>me,me</Size>
+            <Connection>
+              <ConfigKey>[Channel<Variable name="deck_number"/>],track_title</ConfigKey>
+            </Connection>
+          </Label>
+        </Children>
+      </WidgetGroup>
+
+      <!-- Waveform -->
+      <WidgetGroup>
+        <ObjectName>WaveformContainer</ObjectName>
+        <Layout>vertical</Layout>
+        <SizePolicy>
+          <Size>me,me</Size>
+        </SizePolicy>
+        <Children>
+          <Waveform>
+            <ObjectName>Waveform</ObjectName>
+            <TooltipId>waveform_display</TooltipId>
+            <Size>me,me</Size>
+            <Channel><Variable name="deck_number"/></Channel>
+            <SignalColors>
+              <SignalColor>
+                <Color>#3B82F6</Color>
+              </SignalColor>
+            </SignalColors>
+            <BeatColor>#60A5FA</BeatColor>
+            <BgColor>#1E293B</BgColor>
+            <MarkColor>#F59E0B</MarkColor>
+          </Waveform>
+        </Children>
+      </WidgetGroup>
+
+      <!-- Transport Controls -->
+      <WidgetGroup>
+        <ObjectName>TransportControls</ObjectName>
+        <Layout>horizontal</Layout>
+        <SizePolicy>
+          <Size>me,40f</Size>
+        </SizePolicy>
+        <Children>
+          <!-- Play Button -->
+          <PushButton>
+            <ObjectName>PlayButton</ObjectName>
+            <TooltipId>play_cue_set</TooltipId>
+            <Size>60f,30f</Size>
+            <NumberStates>2</NumberStates>
+            <State>
+              <Number>0</Number>
+              <Text>▶</Text>
+            </State>
+            <State>
+              <Number>1</Number>
+              <Text>⏸</Text>
+            </State>
+            <Connection>
+              <ConfigKey>[Channel<Variable name="deck_number"/>],play</ConfigKey>
+              <EmitOnPressAndRelease>true</EmitOnPressAndRelease>
+              <ButtonState>LeftButton</ButtonState>
+            </Connection>
+          </PushButton>
+
+          <!-- Cue Button -->
+          <PushButton>
+            <ObjectName>CueButton</ObjectName>
+            <TooltipId>cue_default</TooltipId>
+            <Size>60f,30f</Size>
+            <NumberStates>2</NumberStates>
+            <State>
+              <Number>0</Number>
+              <Text>CUE</Text>
+            </State>
+            <State>
+              <Number>1</Number>
+              <Text>CUE</Text>
+            </State>
+            <Connection>
+              <ConfigKey>[Channel<Variable name="deck_number"/>],cue_default</ConfigKey>
+              <EmitOnPressAndRelease>true</EmitOnPressAndRelease>
+              <ButtonState>LeftButton</ButtonState>
+            </Connection>
+          </PushButton>
+        </Children>
+      </WidgetGroup>
+
+    </Children>
+  </WidgetGroup>
+</Template>

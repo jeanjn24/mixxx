@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE skin>
+<skin>
+  <manifest>
+    <title>Mixxx Lite</title>
+    <author>Kiro AI</author>
+    <version>1.0.0</version>
+    <description>Minimal skin with SEARCH/DECKS toggle</description>
+    <license>MIT</license>
+  </manifest>
+
+  <attributes>
+    <attribute persist="true" config_key="[Master],show_decks" type="text">1</attribute>
+  </attributes>
+
+  <Style src="skin:style.qss"/>
+
+  <Layout>
+    <SizePolicy>
+      <MinimumSize>1024,600</MinimumSize>
+      <PreferredSize>1280,720</PreferredSize>
+    </SizePolicy>
+
+    <Children>
+      <!-- Main Container -->
+      <WidgetGroup>
+        <ObjectName>MainContainer</ObjectName>
+        <Layout>vertical</Layout>
+        <SizePolicy>
+          <Size>me,me</Size>
+        </SizePolicy>
+        <Children>
+
+          <!-- Deck Section -->
+          <WidgetGroup>
+            <ObjectName>DeckSection</ObjectName>
+            <Layout>vertical</Layout>
+            <SizePolicy>
+              <Size>me,50p</Size>
+            </SizePolicy>
+            <Children>
+              <Template src="skin:deck_simple.xml">
+                <SetVariable name="deck_number">1</SetVariable>
+              </Template>
+            </Children>
+          </WidgetGroup>
+
+          <!-- Library Section -->
+          <WidgetGroup>
+            <ObjectName>LibrarySection</ObjectName>
+            <Layout>vertical</Layout>
+            <SizePolicy>
+              <Size>me,50p</Size>
+            </SizePolicy>
+            <Children>
+              <Template src="skin:library_simple.xml"/>
+            </Children>
+          </WidgetGroup>
+
+        </Children>
+      </WidgetGroup>
+    </Children>
+  </Layout>
+</skin>

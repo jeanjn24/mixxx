@@ -1,0 +1,111 @@
+/* Mixxx Lite Skin - Phase 1 Styles */
+
+/* Main Container */
+#MainContainer {
+  background-color: #0F172A;
+  color: #F1F5F9;
+}
+
+/* Deck Section */
+#DeckSection {
+  background-color: #1E293B;
+  border-bottom: 1px solid #334155;
+}
+
+#DeckSimple {
+  padding: 10px;
+}
+
+#DeckHeader {
+  background-color: #334155;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#TrackTitle {
+  color: #F1F5F9;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#WaveformContainer {
+  margin: 10px 0;
+}
+
+#Waveform {
+  border: 1px solid #475569;
+  border-radius: 4px;
+}
+
+#TransportControls {
+  padding: 5px;
+}
+
+#PlayButton, #CueButton {
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+#PlayButton:hover, #CueButton:hover {
+  background-color: #2563EB;
+}
+
+#PlayButton:pressed, #CueButton:pressed {
+  background-color: #1D4ED8;
+}
+
+/* Library Section */
+#LibrarySection {
+  background-color: #0F172A;
+}
+
+#LibrarySimple {
+  padding: 10px;
+}
+
+#LibraryHeader {
+  background-color: #1E293B;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#LibraryTitle {
+  color: #F1F5F9;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#SearchContainer {
+  margin-bottom: 10px;
+}
+
+#LibrarySearch {
+  background-color: #1E293B;
+  color: #F1F5F9;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+#LibrarySearch:focus {
+  border-color: #3B82F6;
+  outline: none;
+}
+
+#LibraryContainer {
+  background-color: #1E293B;
+  border: 1px solid #334155;
+  border-radius: 4px;
+}
+
+#LibraryWidget {
+  background-color: #1E293B;
+  color: #F1F5F9;
+}

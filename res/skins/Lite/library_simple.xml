@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE template>
+<Template>
+  <WidgetGroup>
+    <ObjectName>LibrarySimple</ObjectName>
+    <Layout>vertical</Layout>
+    <SizePolicy>
+      <Size>me,me</Size>
+    </SizePolicy>
+    <Children>
+
+      <!-- Library Header -->
+      <WidgetGroup>
+        <ObjectName>LibraryHeader</ObjectName>
+        <Layout>horizontal</Layout>
+        <SizePolicy>
+          <Size>me,30f</Size>
+        </SizePolicy>
+        <Children>
+          <Label>
+            <ObjectName>LibraryTitle</ObjectName>
+            <Text>LIBRARY</Text>
+            <Size>me,me</Size>
+          </Label>
+        </Children>
+      </WidgetGroup>
+
+      <!-- Search Box -->
+      <WidgetGroup>
+        <ObjectName>SearchContainer</ObjectName>
+        <Layout>horizontal</Layout>
+        <SizePolicy>
+          <Size>me,30f</Size>
+        </SizePolicy>
+        <Children>
+          <SearchBox>
+            <ObjectName>LibrarySearch</ObjectName>
+            <TooltipId>library_search</TooltipId>
+            <Size>me,me</Size>
+          </SearchBox>
+        </Children>
+      </WidgetGroup>
+
+      <!-- Library Widget -->
+      <WidgetGroup>
+        <ObjectName>LibraryContainer</ObjectName>
+        <Layout>vertical</Layout>
+        <SizePolicy>
+          <Size>me,me</Size>
+        </SizePolicy>
+        <Children>
+          <Library>
+            <ObjectName>LibraryWidget</ObjectName>
+            <Size>me,me</Size>
+          </Library>
+        </Children>
+      </WidgetGroup>
+
+    </Children>
+  </WidgetGroup>
+</Template>
